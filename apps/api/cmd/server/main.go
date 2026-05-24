@@ -6,17 +6,17 @@ import (
 	"net/http"
 )
 
-func main(){
-	addr:= ":8080"
+func main() {
+	addr := ":8080"
 	router := server.NewRouter()
 
-	log.Printf("Starting server on port %s",addr)
+	log.Printf("Starting server on port %s", addr)
 
 	server := http.Server{
-		Addr: addr,
+		Addr:    addr,
 		Handler: router,
 	}
-	
+
 	if err := server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
