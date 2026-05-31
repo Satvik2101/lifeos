@@ -1,0 +1,70 @@
+info:
+  name: createTask
+  type: http
+  seq: 2
+  tags:
+    - Tasks
+
+http:
+  method: POST
+  url: "{{baseUrl}}/tasks"
+  body:
+    type: json
+    data: |-
+      {
+        "title": "test-task3",
+        "notes": "some description",
+        "status": "inbox"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Task created
+    request:
+      url: "{{baseUrl}}/tasks"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "title": "",
+            "notes": "",
+            "status": "inbox",
+            "projectId": "",
+            "tagIds": [],
+            "dueAt": ""
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "",
+            "title": "",
+            "notes": "",
+            "status": "inbox",
+            "projectId": "",
+            "tags": [
+              {
+                "id": "",
+                "name": "",
+                "createdAt": ""
+              }
+            ],
+            "dueAt": "",
+            "completedAt": "",
+            "createdAt": "",
+            "updatedAt": ""
+          }

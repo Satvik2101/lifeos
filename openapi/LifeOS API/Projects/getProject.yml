@@ -1,0 +1,63 @@
+info:
+  name: getProject
+  type: http
+  seq: 3
+  tags:
+    - Projects
+
+http:
+  method: GET
+  url: "{{baseUrl}}/projects/:projectId"
+  params:
+    - name: projectId
+      value: ""
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: Project
+    request:
+      url: "{{baseUrl}}/projects/:projectId"
+      method: GET
+      params:
+        - name: projectId
+          value: ""
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "",
+            "name": "",
+            "archived": false,
+            "createdAt": "",
+            "updatedAt": ""
+          }
+  - name: 404 Response
+    description: Project not found
+    request:
+      url: "{{baseUrl}}/projects/:projectId"
+      method: GET
+      params:
+        - name: projectId
+          value: ""
+          type: path
+    response:
+      status: 404
+      statusText: Not Found
+      body:
+        type: text
+        data: ""

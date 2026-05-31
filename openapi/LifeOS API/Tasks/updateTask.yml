@@ -1,0 +1,80 @@
+info:
+  name: updateTask
+  type: http
+  seq: 4
+  tags:
+    - Tasks
+
+http:
+  method: PATCH
+  url: "{{baseUrl}}/tasks/:taskId"
+  params:
+    - name: taskId
+      value: 9f22026c-9f45-4711-835d-e048fb4e9d01
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "title": "new title2",
+        "notes": "new note",
+        "status": "new status"
+
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: Updated task
+    request:
+      url: "{{baseUrl}}/tasks/:taskId"
+      method: PATCH
+      params:
+        - name: taskId
+          value: ""
+          type: path
+      body:
+        type: json
+        data: |-
+          {
+            "title": "",
+            "notes": "",
+            "status": "inbox",
+            "projectId": "",
+            "tagIds": [],
+            "dueAt": "",
+            "completedAt": ""
+          }
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "",
+            "title": "",
+            "notes": "",
+            "status": "inbox",
+            "projectId": "",
+            "tags": [
+              {
+                "id": "",
+                "name": "",
+                "createdAt": ""
+              }
+            ],
+            "dueAt": "",
+            "completedAt": "",
+            "createdAt": "",
+            "updatedAt": ""
+          }

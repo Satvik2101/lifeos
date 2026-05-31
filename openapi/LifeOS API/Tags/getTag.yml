@@ -1,0 +1,61 @@
+info:
+  name: getTag
+  type: http
+  seq: 3
+  tags:
+    - Tags
+
+http:
+  method: GET
+  url: "{{baseUrl}}/tags/:tagId"
+  params:
+    - name: tagId
+      value: ""
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 200 Response
+    description: Tag
+    request:
+      url: "{{baseUrl}}/tags/:tagId"
+      method: GET
+      params:
+        - name: tagId
+          value: ""
+          type: path
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "",
+            "name": "",
+            "createdAt": ""
+          }
+  - name: 404 Response
+    description: Tag not found
+    request:
+      url: "{{baseUrl}}/tags/:tagId"
+      method: GET
+      params:
+        - name: tagId
+          value: ""
+          type: path
+    response:
+      status: 404
+      statusText: Not Found
+      body:
+        type: text
+        data: ""

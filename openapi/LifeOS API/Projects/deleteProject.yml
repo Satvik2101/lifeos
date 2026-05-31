@@ -1,0 +1,38 @@
+info:
+  name: deleteProject
+  type: http
+  seq: 5
+  tags:
+    - Projects
+
+http:
+  method: DELETE
+  url: "{{baseUrl}}/projects/:projectId"
+  params:
+    - name: projectId
+      value: ""
+      type: path
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 204 Response
+    description: Project deleted
+    request:
+      url: "{{baseUrl}}/projects/:projectId"
+      method: DELETE
+      params:
+        - name: projectId
+          value: ""
+          type: path
+    response:
+      status: 204
+      statusText: No Content
+      body:
+        type: text
+        data: ""

@@ -1,0 +1,52 @@
+info:
+  name: createProject
+  type: http
+  seq: 2
+  tags:
+    - Projects
+
+http:
+  method: POST
+  url: "{{baseUrl}}/projects"
+  body:
+    type: json
+    data: |-
+      {
+        "name": ""
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: 201 Response
+    description: Project created
+    request:
+      url: "{{baseUrl}}/projects"
+      method: POST
+      body:
+        type: json
+        data: |-
+          {
+            "name": ""
+          }
+    response:
+      status: 201
+      statusText: Created
+      headers:
+        - name: Content-Type
+          value: application/json
+      body:
+        type: json
+        data: |-
+          {
+            "id": "",
+            "name": "",
+            "archived": false,
+            "createdAt": "",
+            "updatedAt": ""
+          }
