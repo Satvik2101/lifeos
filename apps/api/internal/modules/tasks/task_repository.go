@@ -6,25 +6,36 @@ import (
 	api "lifeos-api/internal/server/api"
 )
 
-type TaskRepository struct {
+type TaskRepository interface {
+	Create(task api.Task) error
+	Get(id string) (api.Task, bool)
+	List() []api.Task
+	Update(task api.Task) error
+	Delete(id string) error
+}
+
+var _ TaskRepository = (*FakeTaskRepository)(nil)
+
+type FakeTaskRepository struct {
 	mu    sync.Mutex
 	tasks map[string]api.Task
 }
 
-func NewTaskRepository() *TaskRepository {
-	return &TaskRepository{
+func NewFakeTaskRepository() *FakeTaskRepository {
+	return &FakeTaskRepository{
 		tasks: make(map[string]api.Task),
 	}
 }
 
-func (r *TaskRepository) Create(task api.Task) {
+func (r *FakeTaskRepository) Create(task api.Task) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
 	r.tasks[task.Id] = task
+	return nil
 }
 
-func (r *TaskRepository) List() []api.Task {
+func (r *FakeTaskRepository) List() []api.Task {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -35,7 +46,7 @@ func (r *TaskRepository) List() []api.Task {
 	return out
 }
 
-func (r *TaskRepository) Get(id string) (api.Task, bool) {
+func (r *FakeTaskRepository) Get(id string) (api.Task, bool) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -43,7 +54,7 @@ func (r *TaskRepository) Get(id string) (api.Task, bool) {
 	return t, ok
 }
 
-func (r *TaskRepository) Update(updated api.Task) error {
+func (r *FakeTaskRepository) Update(updated api.Task) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -56,7 +67,7 @@ func (r *TaskRepository) Update(updated api.Task) error {
 	return nil
 }
 
-func (r *TaskRepository) Delete(id string) error {
+func (r *FakeTaskRepository) Delete(id string) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 

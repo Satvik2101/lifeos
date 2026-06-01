@@ -13,8 +13,8 @@ type Handler struct {
 }
 
 func NewHandler() *Handler {
-	tasksRepository := tasks.NewTaskRepository()
-	tasksService := tasks.NewTaskService(tasksRepository)
+	fakeTaskRepository := tasks.NewFakeTaskRepository()
+	tasksService := tasks.NewTaskService(fakeTaskRepository)
 	return &Handler{
 		Tasks: tasksService,
 	}
